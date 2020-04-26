@@ -54,7 +54,13 @@ namespace GitHub.Unity
                 inSourceMode = File.Exists(scriptPath);
                 ToggleAssemblies();
                 //ExtensionLoader.instance.Initialized = true;
-                AssetDatabase.SaveAssets();
+
+                // HACK: Band-aid fix to prevent saving null paths
+                // scriptPath has incorrect slashes
+                if(inSourceMode)
+                {
+                    AssetDatabase.SaveAssets();
+                }
             }
 
         }
